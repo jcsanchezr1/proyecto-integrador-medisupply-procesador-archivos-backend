@@ -1,0 +1,23 @@
+version: '3.9'
+
+services:
+  archivos-procesador:
+    image: archivos-procesador
+    container_name: archivos-procesador
+    build:
+      context: ./
+    dns:
+      - 8.8.8.8
+    networks:
+      - archivos-procesador_net
+      - app_net
+    ports:
+      - "8080:8080"
+
+networks:
+  app_net:
+    name: app_net
+    driver: bridge
+  archivos-procesador_net:
+    name: archivos-procesador_net
+    driver: bridge
