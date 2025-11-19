@@ -1,0 +1,43 @@
+name: CI MediSupply Files-Processor Develop
+
+on:
+  push:
+    branches:
+      - "feature**"
+
+jobs:
+  medisupply-files-processor-test:
+    name: MediSupply files-Processor Test
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.11
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+      - name: Install coverage
+        run: pip install coverage
+      - name: Run unit tests with coverage
+        run: |
+          pytest --cov=app --cov-report=term-missing --cov-report=html
+      - name: Check coverage threshold
+        run: |
+          pytest --cov=app --cov-fail-under=80
+
+  medisupply-files-processor-merge-develop:
+    name: Merge to develop
+    needs: medisupply-files-processor-test
+    runs-on: ubuntu-latest
+    steps:
+      - name: Automerge
+        if: ${{ contains(github.event.head_commit.message, 'FINALIZADO') }}
+        uses: tukasz/direct-merge-action@master
+        with:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          source-branch: ${{ github.event.ref }}
+          target-branch: develop
