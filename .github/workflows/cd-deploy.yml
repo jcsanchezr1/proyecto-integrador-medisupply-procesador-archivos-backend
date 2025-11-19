@@ -82,7 +82,7 @@ jobs:
             --platform managed \
             --service-account ${{ env.SIGNING_SERVICE_ACCOUNT_EMAIL }} \
             --set-env-vars HOST="0.0.0.0",DEBUG="false",DATABASE_URL="${{ env.DATABASE_URL }}",GCP_PROJECT_ID="${{ env.GCP_PROJECT_ID }}",BUCKET_NAME="${{ env.BUCKET_NAME }}",BUCKET_FOLDER="${{ env.BUCKET_FOLDER }}",BUCKET_LOCATION="${{ env.BUCKET_LOCATION }}",SIGNING_SERVICE_ACCOUNT_EMAIL="${{ env.SIGNING_SERVICE_ACCOUNT_EMAIL }}" \
-            --memory 2Gi \
+            --memory 4Gi \
             --cpu 2 \
             --min-instances 1 \
             --max-instances 1 \
