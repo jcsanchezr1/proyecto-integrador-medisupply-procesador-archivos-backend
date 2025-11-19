@@ -1,4 +1,4 @@
-name: CI MediSupply Inventory Processor Release
+name: CI MediSupply Files Processor Release
 
 on:
   push:
@@ -6,7 +6,7 @@ on:
       - "feature**"
 
 jobs:
-  medisupply-inventory-processor-deploy-release:
+  medisupply-files-processor-deploy-release:
     name: Deploy to release
     runs-on: ubuntu-latest
     if: ${{ contains(github.event.head_commit.message, 'RELEASE') }}
@@ -44,9 +44,9 @@ jobs:
         run: |
           pytest --cov=app --cov-fail-under=90
 
-  medisupply-inventory-processor-deploy-main:
+  medisupply-files-processor-deploy-main:
     name: Deploy to main
-    needs: medisupply-inventory-processor-deploy-release
+    needs: medisupply-files-processor-deploy-release
     runs-on: ubuntu-latest
     steps:
       - name: automerge

@@ -1,5 +1,5 @@
 """
-Excepciones personalizadas para el procesador de inventarios
+Excepciones personalizadas para el procesador de archivos
 """
 
 

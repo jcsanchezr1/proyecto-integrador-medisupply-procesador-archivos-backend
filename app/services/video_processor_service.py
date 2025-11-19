@@ -136,7 +136,7 @@ class VideoProcessorService:
             
             video_content = self.cloud_storage_service.download_file(
                 filename,
-                self.config.BUCKET_FOLDER_VIDEOS
+                self.config.BUCKET_FOLDER
             )
             
             logger.info(f"Video descargado exitosamente")
@@ -250,10 +250,11 @@ class VideoProcessorService:
                     content_type='video/mp4'
                 )
                 
-                # Subir el archivo
+                # Subir el archivo al mismo folder que el video original
                 success, message, signed_url = self.cloud_storage_service.upload_file(
                     file_storage,
-                    filename
+                    filename,
+                    folder=self.config.BUCKET_FOLDER
                 )
                 
                 if not success:

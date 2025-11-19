@@ -23,8 +23,7 @@ class Config:
     
     # Configuración de Google Cloud Storage
     BUCKET_NAME = os.getenv('BUCKET_NAME', 'medisupply-bucket')
-    BUCKET_FOLDER = os.getenv('BUCKET_FOLDER', 'videos')
-    BUCKET_FOLDER_VIDEOS = os.getenv('BUCKET_FOLDER_VIDEOS', 'sales-plan')
+    BUCKET_FOLDER = os.getenv('BUCKET_FOLDER', 'sales-plan')
     SIGNING_SERVICE_ACCOUNT_EMAIL = os.getenv('SIGNING_SERVICE_ACCOUNT_EMAIL', '')
     MAX_CONTENT_LENGTH = int(os.getenv('MAX_CONTENT_LENGTH', 500 * 1024 * 1024))  # 500MB para videos
     

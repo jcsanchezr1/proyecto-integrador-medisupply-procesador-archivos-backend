@@ -30,7 +30,7 @@ def mock_cloud_storage_service():
 def mock_config():
     """Mock de la configuración"""
     config = Mock()
-    config.BUCKET_FOLDER_VIDEOS = 'test-videos'
+    config.BUCKET_FOLDER = 'test-videos'
     config.MAX_CONTENT_LENGTH = 500 * 1024 * 1024
     return config
 

@@ -17,7 +17,6 @@ def mock_config():
     config = Mock(spec=Config)
     config.BUCKET_NAME = 'test-bucket'
     config.BUCKET_FOLDER = 'test-folder'
-    config.BUCKET_FOLDER_VIDEOS = 'videos'
     config.MAX_CONTENT_LENGTH = 10 * 1024 * 1024  # 10MB
     config.SIGNING_SERVICE_ACCOUNT_EMAIL = 'test@example.com'
     config.GCP_PROJECT_ID = 'test-project'

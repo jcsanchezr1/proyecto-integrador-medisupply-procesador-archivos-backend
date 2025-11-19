@@ -18,7 +18,6 @@ class TestCloudStorageService(unittest.TestCase):
         self.config.GCP_PROJECT_ID = 'test-project'
         self.config.BUCKET_NAME = 'test-bucket'
         self.config.BUCKET_FOLDER = 'test-folder'
-        self.config.BUCKET_FOLDER_PROCESSED_PRODUCTS = 'processed_products'
     
     @patch('app.services.cloud_storage_service.storage.Client')
     def test_service_initialization(self, mock_client_class):
@@ -73,13 +72,13 @@ class TestCloudStorageService(unittest.TestCase):
         
         # Ejecutar
         service = CloudStorageService(self.config)
-        result = service.download_file('test_file.csv', 'processed_products')
+        result = service.download_file('test_file.csv', 'test-folder')
         
         # Verificar
         self.assertIsInstance(result, BytesIO)
         content = result.read()
         self.assertEqual(content, file_content)
-        mock_bucket.blob.assert_called_once_with('processed_products/test_file.csv')
+        mock_bucket.blob.assert_called_once_with('test-folder/test_file.csv')
     
     @patch('app.services.cloud_storage_service.storage.Client')
     def test_download_file_not_found(self, mock_client_class):
@@ -97,7 +96,7 @@ class TestCloudStorageService(unittest.TestCase):
         # Ejecutar y verificar
         service = CloudStorageService(self.config)
         with self.assertRaises(GoogleCloudError) as context:
-            service.download_file('non_existent.csv', 'processed_products')
+            service.download_file('non_existent.csv', 'test-folder')
         
         self.assertIn('no existe', str(context.exception))
     
@@ -140,11 +139,11 @@ class TestCloudStorageService(unittest.TestCase):
         
         # Ejecutar
         service = CloudStorageService(self.config)
-        result = service.file_exists('existing_file.csv', 'processed_products')
+        result = service.file_exists('existing_file.csv', 'test-folder')
         
         # Verificar
         self.assertTrue(result)
-        mock_bucket.blob.assert_called_once_with('processed_products/existing_file.csv')
+        mock_bucket.blob.assert_called_once_with('test-folder/existing_file.csv')
     
     @patch('app.services.cloud_storage_service.storage.Client')
     def test_file_exists_false(self, mock_client_class):
@@ -161,7 +160,7 @@ class TestCloudStorageService(unittest.TestCase):
         
         # Ejecutar
         service = CloudStorageService(self.config)
-        result = service.file_exists('non_existent.csv', 'processed_products')
+        result = service.file_exists('non_existent.csv', 'test-folder')
         
         # Verificar
         self.assertFalse(result)
@@ -181,7 +180,7 @@ class TestCloudStorageService(unittest.TestCase):
         
         # Ejecutar
         service = CloudStorageService(self.config)
-        result = service.delete_file('file_to_delete.csv', 'processed_products')
+        result = service.delete_file('file_to_delete.csv', 'test-folder')
         
         # Verificar
         self.assertTrue(result)
@@ -202,7 +201,7 @@ class TestCloudStorageService(unittest.TestCase):
         
         # Ejecutar
         service = CloudStorageService(self.config)
-        result = service.delete_file('non_existent.csv', 'processed_products')
+        result = service.delete_file('non_existent.csv', 'test-folder')
         
         # Verificar
         self.assertFalse(result)
@@ -225,7 +224,7 @@ class TestCloudStorageService(unittest.TestCase):
         # Ejecutar y verificar
         service = CloudStorageService(self.config)
         with self.assertRaises(GoogleCloudError):
-            service.download_file('error_file.csv', 'processed_products')
+            service.download_file('error_file.csv', 'test-folder')
     
     @patch('app.services.cloud_storage_service.storage.Client')
     def test_get_client_error(self, mock_client_class):
@@ -270,7 +269,7 @@ class TestCloudStorageService(unittest.TestCase):
         
         # Ejecutar
         service = CloudStorageService(self.config)
-        result = service.file_exists('some_file.csv', 'processed_products')
+        result = service.file_exists('some_file.csv', 'test-folder')
         
         # Verificar - debe retornar False en caso de error
         self.assertFalse(result)
@@ -291,7 +290,7 @@ class TestCloudStorageService(unittest.TestCase):
         
         # Ejecutar
         service = CloudStorageService(self.config)
-        result = service.delete_file('error_file.csv', 'processed_products')
+        result = service.delete_file('error_file.csv', 'test-folder')
         
         # Verificar - debe retornar False en caso de error
         self.assertFalse(result)
@@ -328,7 +327,7 @@ class TestCloudStorageService(unittest.TestCase):
         # Ejecutar y verificar
         service = CloudStorageService(self.config)
         with self.assertRaises(GoogleCloudError) as context:
-            service.download_file('error_file.csv', 'processed_products')
+            service.download_file('error_file.csv', 'test-folder')
         
         self.assertIn("Error al descargar archivo desde Cloud Storage", str(context.exception))
     
@@ -348,7 +347,7 @@ class TestCloudStorageService(unittest.TestCase):
         
         # Ejecutar
         service = CloudStorageService(self.config)
-        result = service.delete_file('error_file.csv', 'processed_products')
+        result = service.delete_file('error_file.csv', 'test-folder')
         
         # Verificar
         self.assertFalse(result)

@@ -34,7 +34,7 @@ def mock_cloud_storage_service():
 def mock_config():
     """Mock de la configuración"""
     config = Mock()
-    config.BUCKET_FOLDER_VIDEOS = 'test-videos'
+    config.BUCKET_FOLDER = 'test-videos'
     config.MAX_CONTENT_LENGTH = 500 * 1024 * 1024
     return config
 
@@ -63,7 +63,7 @@ class TestVideoProcessorServiceDownload:
         assert result == mock_content
         mock_cloud_storage_service.download_file.assert_called_once_with(
             filename,
-            video_processor_service.config.BUCKET_FOLDER_VIDEOS
+            video_processor_service.config.BUCKET_FOLDER
         )
     
     def test_download_video_error(self, video_processor_service, mock_cloud_storage_service):

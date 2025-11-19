@@ -155,8 +155,7 @@ Para desplegar en Google Cloud Run:
 
 ### Google Cloud Storage
 - `BUCKET_NAME`: Nombre del bucket de GCS (default: medisupply-bucket)
-- `BUCKET_FOLDER`: Carpeta principal en el bucket (default: videos)
-- `BUCKET_FOLDER_VIDEOS`: Carpeta para videos de visitas (default: visit-videos)
+- `BUCKET_FOLDER`: Carpeta en el bucket para videos originales y procesados (default: sales-plan)
 - `SIGNING_SERVICE_ACCOUNT_EMAIL`: Email del service account para firmar URLs
 - `MAX_CONTENT_LENGTH`: Tamaño máximo de archivo (default: 500MB)
 

@@ -1,4 +1,4 @@
-name: CI MediSupply Inventory-Processor Develop
+name: CI MediSupply Files-Processor Develop
 
 on:
   push:
@@ -6,8 +6,8 @@ on:
       - "feature**"
 
 jobs:
-  medisupply-inventory-processor-test:
-    name: MediSupply Inventory-Processor Test
+  medisupply-files-processor-test:
+    name: MediSupply files-Processor Test
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
@@ -29,9 +29,9 @@ jobs:
         run: |
           pytest --cov=app --cov-fail-under=80
 
-  medisupply-inventory-processor-merge-develop:
+  medisupply-files-processor-merge-develop:
     name: Merge to develop
-    needs: medisupply-inventory-processor-test
+    needs: medisupply-files-processor-test
     runs-on: ubuntu-latest
     steps:
       - name: Automerge
